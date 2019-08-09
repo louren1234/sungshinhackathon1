@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% providers_media_js %}
+{% load staticfiles %}
+
+{% block content %}
+
+<head>
+<style>
+.account{
+  text-align:center;
+  margin:70px 40px 15px 40px;
+}
+.accountform{
+  border: solid;
+  padding:4px;
+  margin:5px;
+  border-radius:4px;
+}
+.b{
+  margin:5px;
+  width:190px;
+}
+.s{
+  width:170px;
+  margin:10px 3px;
+}
+</style>
+</head>
+
+<body>
+<div class="account">
+  <form method="POST" action="{% url 'login'%}" class="form-signin">
+    {% csrf_token %}
+      <img class="mb-4" src="{% static 'plates.png' %}" alt="접시" width="150" height="120">
+      <h2 class="mb-3">Login</h2>
+      <label for="inputEmail" class="sr-only">Username</label>
+      <input name="username" class="accountform" type="text" placeholder="Username"><br>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input name="password" class="accountform" type="password" placeholder="Password"><br>
+      <button type="submit" class="btn btn-outline-dark b">Login!</button><br><br>
+
+    {% if error %}
+      {{error}}
+      <br>
+      <br>
+    {% endif %}
+      
+      <button href="{% provider_login_url 'google' %}" class="btn btn-outline-primary s">>Google 로그인</button>
+      <button href="{% provider_login_url 'naver' %}" class="btn btn-outline-success s">>Naver 로그인</button>
+      <button href="{% provider_login_url 'instagram' %}" class="btn btn-outline-warning s">>Instagram 로그인</button>
+  </form>
+</div><br><br>
+</body>
+
+{% endblock %}

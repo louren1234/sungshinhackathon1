@@ -1,0 +1,78 @@
+<head>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+body{
+  margin:0px;
+}
+h3, h4, p{
+  margin:4px 4px;
+}
+h3{
+  align:right;
+}
+.inner1{
+  padding:10px;
+}
+.inner2{
+  padding:100px 30px;
+}
+.reviews{
+  background-color:red;
+  overflow:auto;
+}
+.page{
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+  <div class="reviews">
+    {% if posts %}
+      {% for reviews in posts %}
+      <div class="card">
+        <div class="inner1">
+          <h5>작성자: {{reviews.author}}</h5>
+          <img src = "{{reviews.image.url}}" class="card-img-top" alt = "리뷰 사진" width="350">
+          <h4>제목: {{reviews.title}}</h4>
+          <p>메뉴: {{reviews.menu}}</p>
+          <p>내용: {{reviews.body}}</p>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      
+      <div class="card">
+        <div class="inner2">
+          <h6>작성된 리뷰가 없습니다.</h6>
+          <h6>오늘도 맛집을 찾아 헤매는 수정이를 위해 첫 번째 리뷰를 작성해주세요!!</h6>
+        
+        {% load staticfiles %}
+        <img src="{% static 'iamsad.png' %}" alt="sad"> 
+      </div>
+      </div>
+      
+       
+    {% endif %}   
+
+      <div class="page">
+        {% if posts %}
+          {% if posts.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{posts.previous_page_number}}">Previous</a>
+          {% endif %}
+
+          <span>{{posts.number}}</span>
+          <span>of</span>
+          <span>{{posts.paginator.num_pages}}</span>
+
+          {% if posts.has_next %}
+            <a href="?page={{posts.next_page_number}}">Next</a>
+            <a href="?page={{posts.paginator.num_pages}}">Last</a>
+          {% endif %}
+        {% endif %}
+      </div>
+  </div>
+
+</body>

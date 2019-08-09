@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<head>
+<style>
+.home{
+  background:url("{% static 'plates.png' %}") no-repeat center #fffacd;
+  width:100%;
+  height:660px;
+  border-radius:10px;
+  color:#ffffff;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
+}
+.search{
+  text-align: center;
+}
+.search input{
+  outline: none;
+  background: transparent;
+  color:#ffffff;
+}
+.search input[type="text"]{
+  width: 200px;
+  height: 42px;
+  padding-left: 15px;
+  border: 3px solid #FFFFFF;
+}
+.search input[type="number"]{
+  width: 170px;
+  height: 42px;
+  padding-left: 15px;
+  border: 3px solid #FFFFFF;
+}
+select{
+  border-radius: 5px;
+  height:40px;
+  margin-right:5px;
+  border: 3px;
+}
+button{
+  border:none;
+  background: transparent;
+  cursor: pointer;
+  color:#ffffff;
+}
+.text:before {
+  content: "\f002";
+  font-family: 'FontAwesome';
+  font-size: 16px;
+}
+.foot{
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+  <div class="home">
+    <div class="search">
+      <article>
+        <form action="{% url 'search' %}" method="GET">
+          <select name="selSearchType">
+            <option value="전체">전체
+            <option value="가게명">가게명
+            <option value="메뉴">메뉴
+          </select>
+          <input type="text" name="txtSearch" value="{{txtSearch}}" placeholder="검색어 입력">
+          <button class="text" type="submit"></button>
+        </form>
+      </article><br>
+
+      <article>
+        <form action="{% url 'pricefilter' %}" method="GET">
+          <p>
+            <input type="checkbox" name="category1" value="한식"> 한식
+            <input type="checkbox" name="category2" value="중식"> 중식
+            <input type="checkbox" name="category3" value="일식"> 일식
+            <input type="checkbox" name="category4" value="양식"> 양식
+            <input type="checkbox" name="category5" value="디저트"> 디저트
+            <input type="checkbox" name="category6" value="기타"> 기타
+          </p>
+          
+          <p>
+            <input type="number" name="min_price" placeholder="최소 가격">
+            <strong>&nbsp~&nbsp</strong>
+            <input type="number" name="max_price" placeholder="최대 가격">
+            <button type="submit"><strong>go!</strong></button>
+          </p>
+      </form><br>
+      </article>
+      
+      <a href="{% url 'show' %}" class="btn btn-outline-light">모든 음식 구경하기</a>
+    </div>
+  </div>
+  <br>  
+</body>
+{% endblock %}

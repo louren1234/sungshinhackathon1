@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+{% if error %}
+{{error}}
+<br>
+<br>
+{% endif %}
+
+<head>
+<style>
+.account{
+  text-align:center;
+  margin:70px 40px 15px 40px;
+}
+.accountform{
+  border: solid;
+  padding:4px;
+  margin:6px;
+  border-radius:4px;
+}
+.b{
+  margin:6px;
+  width:190px;
+}
+</style>
+</head>
+
+<body>
+  <div class="account">
+    <form method="POST" action="{% url 'signup'%}" class="form-signin">
+      {% csrf_token %}
+      <img class="mb-4" src="{% static 'plates.png' %}" alt="접시" width="150" height="120">
+      <h2 class="mb-3">Sign in</h2>
+      <label for="inputEmail" class="sr-only">Username</label>
+      <input name="username" class="accountform" type="text" placeholder="Username"><br>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input name="password1" class="accountform" type="password" placeholder="Password"><br>
+      <label for="inputPassword2" class="sr-only">Password confirm</label>
+      <input name="password2" class="accountform" type="password" placeholder="Password confirm"><br>
+      <input class="btn btn-outline-dark b" type="submit" value="Sign Up!"> 
+    </form><br><br>
+</body>
+
+{% endblock %}
